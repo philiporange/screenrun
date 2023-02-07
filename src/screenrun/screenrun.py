@@ -256,7 +256,7 @@ class ScreenRun:
         path = output.decode('utf-8')
         path = path.strip()
 
-        if output == '':
+        if path == '':
             return None
 
         return path
