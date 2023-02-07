@@ -16,8 +16,8 @@ class ScreenRun:
     '''
     def __init__(self):
         # Find absolute paths of programs used
-        self.screen_path = self._whereis("screen")
-        self.grep_path = self._whereis("grep")
+        self.screen_path = self._which("screen")
+        self.grep_path = self._which("grep")
 
         # Check all programs have been found
         if not self.screen_path or \
@@ -241,7 +241,7 @@ class ScreenRun:
         return names
 
     @staticmethod
-    def _whereis(program):
+    def _which(program):
         '''
         Returns the absolute path of a program or None if not found
 
@@ -251,16 +251,14 @@ class ScreenRun:
         Returns:
             str: The absolute path of the program or None if not found
         '''
-        command = ['whereis', '-b', program]
+        command = ['which', program]
         output = subprocess.check_output(command)
-        output = output.decode('utf-8')
+        path = output.decode('utf-8')
+        path = path.strip()
 
-        parts = output.split(" ")
-        if len(parts) < 2:
+        if output == '':
             return None
 
-        path = parts[1]
-        path = path.strip()
         return path
 
     @staticmethod
