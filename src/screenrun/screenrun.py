@@ -220,7 +220,6 @@ class ScreenRun:
         result = subprocess.run(
             [self.screen_path, "-ls"],
             capture_output=True,
-            check=True,
         )
         output = result.stdout.decode("utf-8")
 
@@ -228,8 +227,10 @@ class ScreenRun:
         lines = output.splitlines()
         lines = [line.strip() for line in lines]
         lines = [line for line in lines if line != ""]  # Remove empty lines
-        ## Remove header
-        lines = [line for line in lines if not line.startswith("There are")]
+        ## Remove header and footer
+        lines = [line for line in lines if not line.startswith("There ")]
+        lines = [line for line in lines if not line.startswith("No Sockets found ")]
+        lines = [line for line in lines if not " Sockets in " in line]
 
         # Remove PID prefixes
         names = [line.split("\t")[0] for line in lines]
