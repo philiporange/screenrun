@@ -10,7 +10,7 @@ setup(
     author='Philip Orange',
     email='pypi@philiporange.com',
     url='https://www.github.com/philiporange/screenrun',
-    version='0.1.1',
+    version='0.1.2',
     description='''
 Simple process management. Keep a process running in a screen session forever.
 ''',
